@@ -1,3 +1,39 @@
+// Package api API
+//
+// Within is the API definitio of ATC, the brain to Concourse. Be wary, gore within.
+//
+// Terms Of Service:
+//
+// There are no TOS at this moment, use at your own risk we take no responsibility.
+//
+//   Schemes: http, https
+//   BasePath: /api/v1
+//   Version: 0.1.0
+//   License: Apache v2 http://www.apache.org/licenses/
+//
+//   Consumes:
+//     - application/json
+//
+//   Produces:
+//     - application/json
+//
+//   Security:
+//     - api_key:
+//
+//   SecurityDefinitions:
+//   api_key:
+//     type: apiKey
+//     name: KEY
+//     in: header
+//   oauth2:
+//     type: oauth2
+//     authorizationUrl: https://example.com/oauth2/auth
+//     tokenUrl: https://example.com/oauth2/token
+//     scopes:
+//       bar: foo
+//     flow: accessCode
+//
+// swagger:meta
 package api
 
 import (
@@ -184,8 +220,36 @@ func NewHandler(
 		atc.SetLogLevel: http.HandlerFunc(logLevelServer.SetMinLevel),
 		atc.GetLogLevel: http.HandlerFunc(logLevelServer.GetMinLevel),
 
-		atc.DownloadCLI:  http.HandlerFunc(cliServer.Download),
-		atc.GetInfo:      http.HandlerFunc(infoServer.Info),
+		atc.DownloadCLI: http.HandlerFunc(cliServer.Download),
+
+		/* getInfo swagger:route GET /info getInfo
+
+		Returns information about the queried ATC instance.
+
+			Produces:
+			- application/json
+
+			Schemes: http, https
+
+			Responses:
+				default: genericError
+				200: getInfoResponse
+		*/
+		atc.GetInfo: http.HandlerFunc(infoServer.Info),
+
+		/* getInfoCreds swagger:route GET /info/creds getInfoCreds
+
+		Returns the credential manager configuration of the queried ATC instance.
+
+			Produces:
+			- application/json
+
+			Schemes: http, https
+
+			Responses:
+				default: genericError
+				200: getInfoCredsResponse
+		*/
 		atc.GetInfoCreds: http.HandlerFunc(infoServer.Creds),
 
 		atc.GetUser:              http.HandlerFunc(usersServer.GetUser),

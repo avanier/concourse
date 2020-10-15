@@ -1,5 +1,7 @@
 package atc
 
+//go:generate swagger generate spec
+
 import "github.com/tedsuo/rata"
 
 const (

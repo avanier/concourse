@@ -6,7 +6,9 @@ import (
 )
 
 type Manager interface {
+	// Whether or not the credential manager is enabled
 	IsConfigured() bool
+	// swagger:ignore
 	Validate() error
 	Health() (*HealthResponse, error)
 	Init(lager.Logger) error

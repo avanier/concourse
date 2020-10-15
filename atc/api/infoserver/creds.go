@@ -7,6 +7,13 @@ import (
 	"github.com/concourse/concourse/atc/creds"
 )
 
+// ServerInfoResponse wraps the response payload of infoserver.Info for Swagger.
+// swagger:response getInfoCredsResponse
+type getInfoCredsResponse struct {
+	// in:body
+	Body creds.Managers
+}
+
 // Creds returns information on the credential manager attached to this instance of concourse.
 // If no credential manager is configured the response will be empty.
 // No actual credentials are shown in the response.

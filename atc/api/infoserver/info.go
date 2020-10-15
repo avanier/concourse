@@ -7,6 +7,13 @@ import (
 	"github.com/concourse/concourse/atc"
 )
 
+// ServerInfoResponse wraps the response payload of infoserver.Info for Swagger.
+// swagger:response getInfoResponse
+type getInfoResponse struct {
+	// in:body
+	Body atc.Info
+}
+
 func (s *Server) Info(w http.ResponseWriter, r *http.Request) {
 	logger := s.logger.Session("info")
 
